@@ -453,4 +453,7 @@ print(maxpoint)
 <details markdown="1">
 <summary>접기/펼치기</summary>
 
+<img src="https://github.com/AlgoAlgo-ssafy-seoul-9th/25th_study/assets/102012985/4093d093-e9fb-49f5-885b-8fb00553c689 height="370">
+
+
 </details>
