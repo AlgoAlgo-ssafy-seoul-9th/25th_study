@@ -82,7 +82,28 @@ print(max(dp[-1][-1]))
 ### [상미](./1학년/상미.py)
 
 ```py
+import sys
+input = sys.stdin.readline
 
+n = int(input())
+arr = list(map(int, input().split()))
+
+dp = [[0] * 21 for _ in range(n)]
+
+# 첫 번째 수는 무조건 저장
+dp[0][arr[0]] = 1
+
+for i in range(1, n - 1):
+    for j in range(21):
+        if dp[i - 1][j]:
+            if j + arr[i] <= 20:
+                # 더하기
+                dp[i][j + arr[i]] += dp[i - 1][j]
+            if j - arr[i] >= 0:
+                # 빼기
+                dp[i][j - arr[i]] += dp[i - 1][j]
+
+print(dp[n-2][arr[-1]])
 ```
 
 ### [성구](./1학년/성구.py)
@@ -333,20 +354,20 @@ def dfs(s:int, erazed:set, prev:int) -> None:
     if s > M:
         # 모두 체크했으면 최댓값 체크
         maxpoint = max(maxpoint, prev)
-        return 
+        return
 
     # 시작지점
     si, sj = teams[s]
-    
+
     # 시작지점 체크
-    
+
     stack = [(0, si, sj, start[s]+prev, set([(si, sj)]))]
-    
+
     # 돌아다닐 필드 생성
     fields = [-1] * (N+1)
     for i in range(N+1):
         fields[i] = field[i].copy()
-    
+
     # 몬스터 잡은 곳 체크
     for y, x in tuple(erazed):
         fields[y][x] = 0
@@ -356,7 +377,7 @@ def dfs(s:int, erazed:set, prev:int) -> None:
         # 3시간 뒤 체크
         if cnt == 3:
             # 다음 사람 체크
-            dfs(s+1, eraz, point) 
+            dfs(s+1, eraz, point)
             continue
         # 갈 수 있는 방향 모두 체크
         for di, dj in [(-1,0), (1,0) , (0,1), (0,-1), (0,0)]:
@@ -370,7 +391,7 @@ def dfs(s:int, erazed:set, prev:int) -> None:
                 # 가만히 있었을 땐, 시간만 체크
                 elif (i == ni and j == nj):
                     stack.append((cnt+1, ni, nj, point, eraz))
-    return 
+    return
 
 dfs(0, set(), 0)
 
